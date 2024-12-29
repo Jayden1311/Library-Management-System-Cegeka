@@ -1,6 +1,7 @@
-# Library-Application-Cegeka
+# Library Management System (LMS)
 
-This application is a library management system developed as a test for Cegeka. It allows users to manage libraries, books, and patrons. The application is built using C# and leverages Entity Framework Core for data persistence.
+This application is a library management system developed as a test for Cegeka. It allows users to manage libraries,
+books, and patrons. The application is built using C# and leverages Entity Framework Core for data persistence.
 
 ## Features
 
@@ -18,7 +19,9 @@ This application is a library management system developed as a test for Cegeka. 
 
 ## Testing
 
-To test the application, please refer to the unit tests provided in the `Lms.Domain.Tests` and `Lms.Infrastructure.Tests` projects. These tests cover various scenarios and ensure the correctness of the application's functionality.
+To test the application, please refer to the unit tests provided in the `Lms.Domain.Tests` and
+`Lms.Infrastructure.Tests` projects. These tests cover various scenarios and ensure the correctness of the application's
+functionality.
 
 ## Dependencies
 
@@ -43,4 +46,5 @@ This command will execute all the unit tests and provide a summary of the test r
 
 ## Conclusion
 
-This library management system is a comprehensive solution for managing libraries, books, and patrons. The unit tests ensure the reliability and correctness of the application.
+This library management system is a comprehensive solution for managing libraries, books, and patrons. The unit tests
+ensure the reliability and correctness of the application.
