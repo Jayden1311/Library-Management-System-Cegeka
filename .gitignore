@@ -1,0 +1,12 @@
+bin/
+obj/
+dist/
+node_modules/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+.idea
+.aws-sam
+*.DotSettings.user
+.vs
+.DS_Store
