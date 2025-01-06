@@ -13,16 +13,16 @@ namespace Lms.Infrastructure.Tests.Repositories
     public class LibraryRepositoryTests
     {
         private readonly LibraryRepository _repository;
-        private readonly LibraryDbContext _context;
+        private readonly LmsDbContext _context;
         private readonly ILogger<LibraryRepository> _logger;
 
         public LibraryRepositoryTests()
         {
-            var options = new DbContextOptionsBuilder<LibraryDbContext>()
+            var options = new DbContextOptionsBuilder<LmsDbContext>()
                 .UseInMemoryDatabase(databaseName: "LibraryTestDb")
                 .Options;
 
-            _context = new LibraryDbContext(options);
+            _context = new LmsDbContext(options);
             _logger = new LoggerFactory().CreateLogger<LibraryRepository>();
             _repository = new LibraryRepository(_context, _logger);
         }

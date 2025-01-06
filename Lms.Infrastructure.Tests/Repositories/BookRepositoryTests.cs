@@ -13,17 +13,17 @@ namespace Lms.Infrastructure.Tests.Repositories
 {
     public class BookRepositoryTests
     {
-        private readonly LibraryDbContext _context;
+        private readonly LmsDbContext _context;
         private readonly BookRepository _repository;
 
         public BookRepositoryTests()
         {
             // Set up an in-memory database
-            var options = new DbContextOptionsBuilder<LibraryDbContext>()
+            var options = new DbContextOptionsBuilder<LmsDbContext>()
                 .UseInMemoryDatabase(databaseName: "LibraryTestDb")
                 .Options;
 
-            _context = new LibraryDbContext(options);
+            _context = new LmsDbContext(options);
             Mock<ILogger<BookRepository>> mockLogger = new();
             _repository = new BookRepository(_context, mockLogger.Object);
         }

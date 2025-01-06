@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Lms.Infrastructure.Persistence
 {
-    public class LibraryDbContext : DbContext
+    public class LmsDbContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
         public DbSet<Patron> Patrons { get; set; }
         public DbSet<Library> Libraries { get; set; }
 
-        public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
+        public LmsDbContext(DbContextOptions<LmsDbContext> options) : base(options)
         {
         }
 

@@ -9,14 +9,14 @@ namespace Lms.Domain.IntegrationTests
 {
     public class PatronIntegrationTests
     {
-        private readonly LibraryDbContext _context;
+        private readonly LmsDbContext _context;
 
         public PatronIntegrationTests()
         {
-            var options = new DbContextOptionsBuilder<LibraryDbContext>()
+            var options = new DbContextOptionsBuilder<LmsDbContext>()
                 .UseInMemoryDatabase(databaseName: "LibraryTestDb")
                 .Options;
-            _context = new LibraryDbContext(options);
+            _context = new LmsDbContext(options);
         }
 
         [Fact]

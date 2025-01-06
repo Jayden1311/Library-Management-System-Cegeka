@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <GenerateCode>True</GenerateCode>
+        <Configurations>Debug;Release;Unittest</Configurations>
+        <Platforms>AnyCPU</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Compile Remove="node_modules\**"/>
+        <EmbeddedResource Remove="node_modules\**"/>
+        <None Remove="node_modules\**"/>
+        <TypeScriptCompile Remove="node_modules\**"/>
+        <Compile Remove="dist\**"/>
+        <EmbeddedResource Remove="dist\**"/>
+        <None Remove="dist\**"/>
+        <TypeScriptCompile Remove="dist\**"/>
+        <Compile Remove="src\lms.api.client.generated.cs"/>
+    </ItemGroup>
+
+</Project>

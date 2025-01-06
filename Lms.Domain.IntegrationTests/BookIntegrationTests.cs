@@ -9,14 +9,14 @@ namespace Lms.Domain.IntegrationTests
 {
     public class BookIntegrationTests
     {
-        private readonly LibraryDbContext _context;
+        private readonly LmsDbContext _context;
 
         public BookIntegrationTests()
         {
-            var options = new DbContextOptionsBuilder<LibraryDbContext>()
+            var options = new DbContextOptionsBuilder<LmsDbContext>()
                 .UseInMemoryDatabase(databaseName: "LibraryTestDb")
                 .Options;
-            _context = new LibraryDbContext(options);
+            _context = new LmsDbContext(options);
         }
 
         [Fact]

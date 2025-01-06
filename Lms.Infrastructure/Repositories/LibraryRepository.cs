@@ -1,6 +1,7 @@
 ﻿using Lms.Domain.Aggregates;
 using Lms.Domain.Entities;
 using Lms.Domain.Interfaces;
+using Lms.Domain.Interfaces.Repositories;
 using Lms.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -9,10 +10,10 @@ namespace Lms.Infrastructure.Repositories
 {
     public class LibraryRepository : ILibraryRepository
     {
-        private readonly LibraryDbContext _context;
+        private readonly LmsDbContext _context;
         private readonly ILogger<LibraryRepository> _logger;
 
-        public LibraryRepository(LibraryDbContext context, ILogger<LibraryRepository> logger)
+        public LibraryRepository(LmsDbContext context, ILogger<LibraryRepository> logger)
         {
             _context = context;
             _logger = logger;
@@ -24,7 +25,35 @@ namespace Lms.Infrastructure.Repositories
             await _context.Libraries.AddAsync(library);
         }
 
-        public async Task<Library> GetByIdAsync(int id)
+        public Task DeleteAsync(Library library)
+        {
+            _logger.LogInformation("Deleting library with ID: {Id}", library.Id);
+
+            if (library == null)
+            {
+                _logger.LogError("Library is null");
+                throw new System.ArgumentNullException(nameof(library));
+            }
+
+            _context.Libraries.Remove(library);
+            return Task.CompletedTask;
+        }
+
+        public Task EditAsync(Library library)
+        {
+            _logger.LogInformation("Editing library with ID: {Id}", library.Id);
+
+            if (library == null)
+            {
+                _logger.LogError("Library is null");
+                throw new System.ArgumentNullException(nameof(library));
+            }
+
+            _context.Libraries.Update(library);
+            return Task.CompletedTask;
+        }
+
+        public async Task<Library?> GetByIdAsync(int id)
         {
             _logger.LogInformation("Fetching library with ID: {ID}", id);
             var library = await _context.Libraries.FindAsync(id);

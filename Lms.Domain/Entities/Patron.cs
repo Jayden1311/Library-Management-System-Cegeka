@@ -8,15 +8,14 @@ namespace Lms.Domain.Entities
         public string Name { get; private set; }
         public List<Book> CheckedOutBooks { get; private set; } = new();
 
-        // Need a private & parameterless constructor for EF
-        // ReSharper disable once UnusedMember.Local
-        private Patron()
-        {
-        }
-
         public Patron(string name)
         {
             Name = name;
+        }
+
+        // Parameterless constructor
+        public Patron()
+        {
         }
 
         public void UpdateName(string name)
@@ -24,11 +23,6 @@ namespace Lms.Domain.Entities
             Name = name;
         }
 
-        public void CheckoutBook(Book book)
-        {
-            book.MarkAsCheckedOut();
-            CheckedOutBooks.Add(book);
-        }
 
         public void ReturnBook(Book book)
         {
@@ -36,6 +30,12 @@ namespace Lms.Domain.Entities
                 throw new InvalidOperationException("This book was not checked out by this patron.");
             book.MarkAsReturned();
             CheckedOutBooks.Remove(book);
+        }
+
+        public void CheckoutBook(Book book)
+        {
+            book.MarkAsCheckedOut();
+            CheckedOutBooks.Add(book);
         }
 
         public void CheckoutBook(string isbn, Library library)

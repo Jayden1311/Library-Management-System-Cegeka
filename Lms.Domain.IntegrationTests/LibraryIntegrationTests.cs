@@ -9,14 +9,14 @@ namespace Lms.Domain.IntegrationTests
 {
     public class LibraryIntegrationTests
     {
-        private readonly LibraryDbContext _context;
+        private readonly LmsDbContext _context;
 
         public LibraryIntegrationTests()
         {
-            var options = new DbContextOptionsBuilder<LibraryDbContext>()
+            var options = new DbContextOptionsBuilder<LmsDbContext>()
                 .UseInMemoryDatabase(databaseName: "LibraryTestDb")
                 .Options;
-            _context = new LibraryDbContext(options);
+            _context = new LmsDbContext(options);
         }
 
         [Fact]
@@ -34,7 +34,7 @@ namespace Lms.Domain.IntegrationTests
             _context.Patrons.Add(patron);
             _context.SaveChanges();
 
-            
+
             library.CheckoutBook(checkedOutBook.ISBN, patron);
             _context.SaveChanges();
 
@@ -85,6 +85,50 @@ namespace Lms.Domain.IntegrationTests
             // Assert
             var retrievedLibrary = _context.Libraries.Include(l => l.Books).FirstOrDefault(l => l.Id == library.Id);
             retrievedLibrary.Books.Should().NotContain(book);
+        }
+
+        [Fact]
+        public void BookInOneLibrary_ShouldNotBeAvailableInAnotherLibrary()
+        {
+            // Arrange
+            var library1 = new Library("Test Library 1");
+            var library2 = new Library("Test Library 2");
+            var book = new Book("Test Book", "Test Author", "Test Genre", "1234567890", library1);
+
+            _context.Libraries.Add(library1);
+            _context.Libraries.Add(library2);
+            _context.Books.Add(book);
+            _context.SaveChanges();
+
+            // Act
+            library1.RemoveBook(book.ISBN);
+            _context.SaveChanges();
+
+            // Assert
+            var retrievedLibrary2 = _context.Libraries.Include(l => l.Books).FirstOrDefault(l => l.Id == library2.Id);
+            retrievedLibrary2?.Books.Should().NotContain(book);
+        }
+
+        [Fact]
+        public void BookInLibrary_ShouldBeAvailableInLibrary()
+        {
+            // Arrange
+            var library1 = new Library("Test Library 1");
+            var library2 = new Library("Test Library 2");
+            var book = new Book("Test Book", "Test Author", "Test Genre", "1234567890", library1);
+
+            _context.Libraries.Add(library1);
+            _context.Libraries.Add(library2);
+            _context.Books.Add(book);
+            _context.SaveChanges();
+
+            // Act
+            library2.AddBook(book);
+            _context.SaveChanges();
+
+            // Assert
+            var retrievedLibrary2 = _context.Libraries.Include(l => l.Books).FirstOrDefault(l => l.Id == library2.Id);
+            retrievedLibrary2?.Books.Should().Contain(book);
         }
     }
 }

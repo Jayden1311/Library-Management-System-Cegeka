@@ -10,17 +10,17 @@ namespace Lms.Infrastructure.Tests.Repositories;
 
 public class PatronRepositoryTests
 {
-    private readonly LibraryDbContext _context;
+    private readonly LmsDbContext _context;
     private readonly PatronRepository _repository;
 
     public PatronRepositoryTests()
     {
         // Set up an in-memory database
-        var options = new DbContextOptionsBuilder<LibraryDbContext>()
+        var options = new DbContextOptionsBuilder<LmsDbContext>()
             .UseInMemoryDatabase(databaseName: "LibraryTestDb")
             .Options;
 
-        _context = new LibraryDbContext(options);
+        _context = new LmsDbContext(options);
         Mock<ILogger<PatronRepository>> mockLogger = new();
         _repository = new PatronRepository(_context, mockLogger.Object);
     }
@@ -63,7 +63,7 @@ public class PatronRepositoryTests
     {
         // Act & Assert
         var exception = await Assert.ThrowsAsync<KeyNotFoundException>(() => _repository.GetByIdAsync(99));
-        Assert.Equal("Patron with ID 99 not found.", exception.Message);
+        Assert.Equal("Patron with ID 99 not found", exception.Message);
     }
 
     [Fact]
